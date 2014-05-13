@@ -113,8 +113,9 @@ if (yt) {
     executeFile(swf, null, config.args);
   });
 }
-if (remoteFile) {
-  configureMocks(remoteFile);
+//TODO: Have to change mocks when shifted to NAT branch
+if (true) { // Making mocks compulsory so that ExternalInterface mock is loaded
+  configureMocks("jwplayer"); // "jwplayer" argument required as sample mock is for "jwplayer"
 }
 
 if (simpleMode) {
