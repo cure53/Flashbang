@@ -1,0 +1,10 @@
+[
+   {
+    "name":"firefox",
+    "path":"/Applications/Firefox.app"
+   },
+   {
+    "name":"chrome",
+    "path":"/Applications/Google Chrome.app"
+   }
+]

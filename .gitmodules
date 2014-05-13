@@ -1,0 +1,9 @@
+[submodule "shumway/src/avm2/compiler/lljs"]
+	path = shumway/src/avm2/compiler/lljs
+	url = https://github.com/mbebenita/LLJS.git
+[submodule "shumway/lib/DataView.js"]
+	path = shumway/lib/DataView.js
+	url = https://github.com/davidflanagan/DataView.js.git
+[submodule "shumway/lib/stats"]
+	path = shumway/lib/stats
+	url = https://github.com/mrdoob/stats.js.git

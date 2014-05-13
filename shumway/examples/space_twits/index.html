@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+<link href='twits.css' rel='stylesheet' type='text/css'>
+<script src="../../iframe/viewer.js"></script>
+<script>
+var SHUMWAY_ROOT = "../../src/";
+</script>
+<script src="../../src/shumway.js"></script>
+<script src="./twits.js"></script>
+</head>
+
+<body>
+<div id="title">Space Twits</div>
+
+<div id="game">
+    <div id="viewer" style="width:400px; height:366px;"></div>
+    <script>
+      var compilerSettings = {sysCompiler: true, appCompiler: true, verifier: true};
+      FileLoadingService.setBaseUrl(document.location.href);
+
+      movieUrl = 'twits.swf';
+      movieParams = {};
+      objectParams = {};
+      parseSwf(movieUrl, movieParams, objectParams, compilerSettings);
+    </script>
+</div>
+
+<div id="credits">
+Background: <a href="http://www.eso.org/public/images/eso0839a/">ESO/ Mario Nonino, Piero Rosati and the ESO GOODS Team</a>
+</div>
+
+</body>
+</html>

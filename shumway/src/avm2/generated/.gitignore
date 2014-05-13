@@ -1,0 +1,4 @@
+playerGlobal/
+*/*.hashes
+*/*.h
+*/*.cpp

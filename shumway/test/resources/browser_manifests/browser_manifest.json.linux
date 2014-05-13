@@ -1,0 +1,10 @@
+[
+   {
+    "name":"firefox",
+    "path":"/usr/bin/firefox"
+   },
+   {
+    "name":"chrome-ish",
+    "path":"/usr/bin/chromium-browser"
+   }
+]

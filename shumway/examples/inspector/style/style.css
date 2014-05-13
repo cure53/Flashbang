@@ -1,0 +1,292 @@
+html {
+  height: 100%;
+}
+
+body {
+  background-image: url(images/texture.png);
+  background-color: #1a2633;
+}
+
+*[hidden] {
+  display: none;
+}
+*:focus {
+  outline: none;
+}
+
+body.simple {
+  text-align: center;
+}
+body.simple > div {
+  display: none;
+}
+body.simple #stageContainer {
+  display: block;
+
+}
+body.simple #xstats {
+  display: none;
+}
+
+.muteButton { background-image: url(images/mute-button.png); }
+
+.toolbarBox {
+  position: absolute;
+  width: auto;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+#topToolbar {
+  top: 0;
+  right: 500px;
+  left: 0;
+}
+#debugInfoToolbar {
+  top: 0;
+  right: 0;
+  width: 500px;
+  padding-left: 0;
+}
+#bottomToolbar {
+  bottom: 0;
+  right: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#message {
+  padding-left: 6px;
+  opacity: 0.7;
+}
+#openFile {
+  float: right;
+}
+#timerInfo {
+  line-height: 1.6em;
+  padding: 3px;
+}
+
+#topToolbar > .iconButton {
+  display: none;
+  float: right;
+  padding: 0 2px;
+}
+#topToolbar > .iconButton.active {
+  display: inline-block;
+}
+
+#muteButton {
+  margin-right: 8px;
+}
+#pauseButton {
+  font-size: 10px;
+}
+#stepButton {
+  font-size: 12px;
+}
+
+#fpsPanelContainer {
+  position: absolute;
+  top: 32px;
+  right: 500px;
+  left: 0;
+  height: 150px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #666;
+}
+
+#debugInfoToolbar > .toolbarButtonBar {
+  display: none;
+  font-size: 0;
+}
+#debugInfoToolbar > .toolbarButtonBar.active {
+  display: inline-block;
+}
+
+#ctrlLogToConsole {
+  display: none;
+  float: right;
+  font: 12px Lucida Grande, sans-serif;
+  color: hsl(210,30%,85%);
+  padding-top: 3px;
+}
+#ctrlLogToConsole.active {
+  display: inline-block;
+}
+
+#debugInfoContainer.active, #displayListContainer.active, #settingsContainer.active {
+  display: block;
+}
+#debugInfoContainer, #displayListContainer, #settingsContainer {
+  display: none;
+  position: absolute;
+  top: 32px;
+  bottom: 0;
+  right: 0;
+  width: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-left: 1px solid #666;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#debugInfoContainer > canvas {
+  padding-bottom: 4px;
+  border-bottom: 1px solid #666;
+}
+
+#settingsContainer > .dg.main {
+  width: 499px !important;
+}
+#settingsContainer > .dg .property-name {
+  width: 50%;
+  color: #ccc;
+}
+#settingsContainer > .dg .c {
+  width: 50%;
+}
+#settingsContainer > .dg li.title {
+  font-weight: bold;
+}
+
+#displayListContainer {
+  color: #ccc;
+  font: 10px Consolas, "Liberation Mono", Courier, monospace;
+  cursor: default;
+  overflow-y: hidden;
+}
+#displayList {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+}
+#displayList ul {
+  padding: 0 0 0 12px;
+  margin: 0;
+}
+#displayList > ul {
+  padding: 0;
+  margin: 4px 6px;
+}
+#displayList li {
+  list-style: none;
+}
+#displayList li > div {
+  display: block;
+  padding: 1px 0 1px 4px;
+}
+#displayList li > div:hover {
+  background-color: rgba(255,255,255, 0.1);
+}
+#displayList li > div.selected {
+  background-color: rgba(255,255,255, 0.2);
+}
+#displayList li > div.selected:hover {
+  background-color: rgba(255,255,255, 0.3);
+}
+#displayList li > div > span.mcFrameInfo {
+  padding-right: 4px;
+  float: right;
+  color: rgba(255, 136, 136, 0.75);
+}
+#displayList li > div > span.doName {
+  padding-left: 5px;
+  color: rgba(136, 136, 255, 1);
+}
+#displayList li > div > span.doOutline {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  padding-top: 1px;
+  padding-right: 5px;
+  color: #666;
+}
+
+#displayObjectProperties {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100px;
+  border-top: 1px solid #666;
+  padding: 6px 8px;
+}
+#displayListContainer.hasProperties > #displayList {
+  bottom: 113px;
+}
+#displayListContainer.hasProperties > #displayObjectProperties {
+  display: block;
+}
+
+#stageContainer {
+  position: absolute;
+  top: 133px;
+  bottom: 0;
+  left: 0;
+  right: 500px;
+  overflow: auto;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+#stageInnerContainer {
+  -webkit-box-flex: 1 1 auto;
+  -moz-box-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: center
+}
+#stage {
+  display: inline-block;
+}
+
+#xstats {
+  position: absolute;
+  top: 133px;
+  right: 500px;
+  z-index: 1;
+}
+
+.debugPanel {
+  font-family: Consolas, Lucida Grande, sans-serif;
+  color: white;
+  opacity: 1;
+  font-size: 10px;
+  cursor: default;
+  line-height: 1.2em;
+  overflow-x: auto;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  body {
+    background-color: #1a2633;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  #stageContainer { right: 354px; }
+  #topToolbar, #xstats, #fpsPanelContainer { right: 350px; }
+  #debugInfoToolbar, #debugInfoContainer, #displayListContainer { width: 350px; }
+}
+
+@media only screen and (max-width: 768px) {
+  #stageContainer, #topToolbar, #xstats, #fpsPanelContainer { right: 0; }
+  #debugInfoToolbar, #debugInfoContainer, #displayListContainer { display: none !important; }
+}
