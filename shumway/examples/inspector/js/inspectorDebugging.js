@@ -21,5 +21,5 @@ Shumway.AVM1.avm1TimeoutDisabled.value = true;
 // Examples of the commands to control the AVM1 debugger
 // (use console or uncomment them here)
 Shumway.AVM1.avm1DebuggerEnabled.value = true;
-Shumway.AVM1.Debugger.pause = true;
+//Shumway.AVM1.Debugger.pause = true;
 //Shumway.AVM1.Debugger.breakpoints.f1i0_f49 = true;

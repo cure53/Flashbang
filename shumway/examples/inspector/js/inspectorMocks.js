@@ -36,7 +36,8 @@ function configureMocks(remoteFile) {
         switch (data.action) {
           case 'eval':
             var expr = data.expression;
-            if (expr.indexOf('jwplayer.utils.tea.decrypt') >= 0) {
+            // Needed for some mocking :P
+            if (expr){ //(expr.indexOf('jwplayer.utils.tea.decrypt') >= 0) {
               return "<string></string>";
             } else if (expr.indexOf('jwplayer.embed.flash.getVars') >= 0) {
               var base = document.location.href;
