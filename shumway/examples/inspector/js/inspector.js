@@ -116,7 +116,6 @@ if (yt) {
 //TODO: Have to change mocks when shifted to NAT branch
 if (true) { // Making mocks compulsory so that ExternalInterface mock is loaded
   configureMocks("jwplayer"); // "jwplayer" argument required as sample mock is for "jwplayer"
-  state.logToConsole=true; // Logging to console enabled by default :P
 }
 
 if (simpleMode) {
