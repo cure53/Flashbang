@@ -23,7 +23,7 @@ var state = Shumway.Settings.load(LC_KEY_INSPECTOR_SETTINGS);
 if (Shumway.isNullOrUndefined(state)) {
   state = {
     debugPanelId: "settingsContainer",
-    logToConsole: false,
+    logToConsole: true,
     mute: false
   }
 }

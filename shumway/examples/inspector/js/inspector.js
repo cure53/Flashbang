@@ -23,6 +23,7 @@ var remoteFile = getQueryVariable("rfile");
 var yt = getQueryVariable('yt');
 
 var swfController = new SWFController(timeline, pauseExecution);
+var flashbangController = new FlashbangController(swfController);
 
 /** Global sanityTests array, sanity tests add themselves to this */
 var sanityTests = [];
@@ -102,7 +103,7 @@ function parseQueryString(qs) {
  */
 if (remoteFile) {
   document.getElementById('openFile').setAttribute('hidden', true);
-  executeFile(remoteFile, null, parseQueryString(window.location.search));
+  flashbangController.loadFile(remoteFile, null, parseQueryString(window.location.search));
 }
 
 if (yt) {
@@ -113,7 +114,7 @@ if (yt) {
     executeFile(swf, null, config.args);
   });
 }
-//TODO: Have to change mocks when shifted to NAT branch
+//TODO: Have to change mocks when NAT branch code is considered
 if (true) { // Making mocks compulsory so that ExternalInterface mock is loaded
   configureMocks("jwplayer"); // "jwplayer" argument required as sample mock is for "jwplayer"
 }
@@ -158,7 +159,7 @@ function executeFile(file, buffer, movieParams) {
           onComplete: swfController.completeCallback.bind(swfController),
           onBeforeFrame: swfController.beforeFrameCallback.bind(swfController),
           onAfterFrame: swfController.afterFrameCallback.bind(swfController),
-          onStageInitialized: swfController.stageInitializedCallback.bind(swfController),
+          onStageInitialized: function(stage) { swfController.stageInitializedCallback(stage); flashbangController.stageInitializedCallback(); },
           url: swfURL,
           loaderURL: loaderURL,
           movieParams: movieParams || {},

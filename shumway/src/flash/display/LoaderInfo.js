@@ -59,6 +59,7 @@ var LoaderInfoDefinition = (function () {
             }
             mangled.asGetProperty = function(namespaces, name, flags) {
                                       console.log("AS3 flashVar name from src/flash/display/LoaderInfo.js (_getArgs): "+name);
+                                      flashbangController.addFlashVar(name);
                                       return Object.prototype.asGetProperty.call(this, namespaces, name, flags);
                                     }
             return mangled;
