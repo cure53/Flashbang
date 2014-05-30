@@ -31,6 +31,10 @@ console.warn = function (str) {
   }
   appendToTraceTerminal([].join.call(arguments, " "), "#FF6700");
 };
+console.logFlashVar = function (str, loc) {
+  console.log("Possible flashVar ("+loc+"): "+str);
+  flashbangController.addFlashVar(str);
+};
 
 var frameTerminal = new Terminal(document.getElementById("frameTerminal")); frameTerminal.refreshEvery(100);
 

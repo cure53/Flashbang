@@ -1,7 +1,7 @@
 /* -*- Mode: js; js-indent-level: 2; indent-tabs-mode: nil; tab-width: 2 -*- */
 /* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
 /*
- * Have to add LICENSE
+ * TODO: Have to add LICENSE
  */
 
 var FlashbangController = (function() {
@@ -18,8 +18,9 @@ var FlashbangController = (function() {
       for (var i=0; i < events.length; i++){
         item._gotoButtonState(events[i]);
       }
-    } else if (flash.display.InteractiveObject.class.isInstanceOf(item)){
-      var events = ['mouseMove', 'mouseOut', 'mouseOver', 'mouseDown', 'mouseUp'];
+    }
+    if (flash.display.InteractiveObject.class.isInstanceOf(item)){
+      var events = ['mouseMove', 'mouseOut', 'mouseOver', 'mouseDown', 'mouseUp', 'click', 'doubleClick'];
       for (var i=0; i < events.length; i++){
         item._dispatchEvent(events[i]);
       }
@@ -81,7 +82,8 @@ var FlashbangController = (function() {
       this.fileBuffer = fileBuffer;
       this.movieParams = movieParams || {}; // Built using flashVars
 
-      this.fuzzForVars();  // A temporary call which will be later replaced by intelligent fuzzing
+      // this.fuzzForVars();  // A temporary call which will be later replaced by intelligent fuzzing
+      this._executeSWF(this.fileName, this.fileBuffer, this.movieParams, this.simulateEvents);
     },
 
     fuzzForVars: function fuzzForVars() {  // Launches swf and simulates all events on display objects

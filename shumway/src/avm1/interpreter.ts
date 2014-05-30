@@ -842,8 +842,7 @@ module Shumway.AVM1 {
         return mc;
       } else { // Control comes here only if lookupChild fails implying a non existant attribute
         if (isAS2MovieClip(currentTarget)){ // Couldn't find validity of this check as all the cases that end up here are MovieClips
-          console.log("Possible flashVar name from src/avm1/interpreter.js (avm1GetVariable): "+variableName);
-          flashbangController.addFlashVar(variableName);
+          console.logFlashVar(variableName, "avm1GetVariable-runtime");
         }
       }
       return undefined;
@@ -1487,8 +1486,7 @@ module Shumway.AVM1 {
       } else {
         var resolvedName = as2ResolveProperty(Object(obj), name);
         if (isAS2MovieClip(obj) && (resolvedName === null)){
-          console.log("Possible flashVar name from src/avm1/interpreter.js (avm1_0x4E_ActionGetMember): "+name);
-          flashbangController.addFlashVar(name);
+          console.logFlashVar(name, "avm1_0x4E_ActionGetMemeber-runtime");
         }
         stack.push(resolvedName === null ? undefined :
           as2GetProperty(Object(obj), resolvedName));

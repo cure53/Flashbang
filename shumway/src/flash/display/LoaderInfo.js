@@ -58,8 +58,7 @@ var LoaderInfoDefinition = (function () {
               mangled[Multiname.getPublicQualifiedName(k)] = params[k];
             }
             mangled.asGetProperty = function(namespaces, name, flags) {
-                                      console.log("AS3 flashVar name from src/flash/display/LoaderInfo.js (_getArgs): "+name);
-                                      flashbangController.addFlashVar(name);
+                                      console.logFlashVar(name, "_getArgs-runtime");
                                       return Object.prototype.asGetProperty.call(this, namespaces, name, flags);
                                     }
             return mangled;
