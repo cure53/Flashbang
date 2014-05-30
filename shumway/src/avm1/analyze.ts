@@ -43,6 +43,9 @@ module Shumway.AVM1 {
       var labels: number[] = [0];
       var processedLabels: boolean[] = [true];
 
+      // An array temp. used by flashbang code for static analysis
+      var flashbangStack = [];
+
       // Parsing all actions we can reach. Every action will have next position
       // and conditional jump location.
       var queue: number[] = [0];
@@ -97,6 +100,30 @@ module Shumway.AVM1 {
               nonConditionalBranching = true;
               branching = true;
               jumpPosition = parser.length;
+              break;
+
+            // Flashbang cases for static analysis
+            case ActionCode.ActionConstantPool:
+              // Refresh constant pool as we get it ;)
+              var flashbangConstantPool = action.args[0].slice();
+              break;
+            case ActionCode.ActionPush:
+              // Iterate over the arguments and push them accordingly
+              for (var i=0; i < action.args.length; i++) {
+                var arg = action.args[i];
+                if (arg instanceof Shumway.AVM1.ParsedPushConstantAction) {
+                  flashbangStack.push(flashbangConstantPool[arg.constantIndex]);
+                } else {
+                  flashbangStack.push(arg);
+                }
+              }
+              break;
+            case ActionCode.ActionGetMember:
+              // Check if the object under request is "_root", it will be the second item from top
+              // first will be the flashVar itself
+              if (flashbangStack[flashbangStack.length-2] == "_root") {
+                console.logFlashVar(flashbangStack[flashbangStack.length-1], "analyze-static");
+              }
               break;
           }
           if (branching) {
