@@ -721,6 +721,29 @@
     Timer.start("Serialize AST");
     var source = generateSource(code);
     Timer.stop();
+
+    // Now we have string as "source" and AST as "code" :P
+    if (source.indexOf("loaderInfo") > -1) { // Check for calls to loaderInfo
+      var flashbangLoaderInfo = null; // Will be needed for confirming that parameters are of LoaderInfo
+      var flashbangParameters = null;
+      for (var i=0; i<code.body.length; i++) { // Iterate over all expressions in a block
+        var expression = code.body[i].expression;
+        if (expression instanceof AssignmentExpression && expression.right instanceof CallExpression) { // Some trivial checks for parsing
+          // Check if the call on the right side of expression is asGetProperty
+          if (expression.right.callee.property && expression.right.callee.property.name && expression.right.callee.property.name == "asGetProperty") {
+            // Check if loaderInfo is present in the arguemnets, then parameters and finally the flashVar
+            if (expression.right.arguments[1].value == "loaderInfo") {
+              flashbangLoaderInfo = expression.left.name;
+            } else if (expression.right.arguments[1].value == "parameters" && flashbangLoaderInfo && expression.right.callee.object.name == flashbangLoaderInfo) {
+              flashbangParameters = expression.left.name;
+            } else if (flashbangParameters && expression.right.callee.object.name == flashbangParameters) {
+              console.logFlashVar(expression.right.arguments[1].value, "AS3-static");
+            }
+          }
+        }
+      }
+    }
+
     return {parameters: parameters.map(function (p) { return p.name; }), body: source};
   }
 
