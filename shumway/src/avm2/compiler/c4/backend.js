@@ -726,18 +726,34 @@
     if (source.indexOf("loaderInfo") > -1) { // Check for calls to loaderInfo
       var flashbangLoaderInfo = null; // Will be needed for confirming that parameters are of LoaderInfo
       var flashbangParameters = null;
+      var flashbangFlashVarNamespace = null;
       for (var i=0; i<code.body.length; i++) { // Iterate over all expressions in a block
         var expression = code.body[i].expression;
         if (expression instanceof AssignmentExpression && expression.right instanceof CallExpression) { // Some trivial checks for parsing
           // Check if the call on the right side of expression is asGetProperty
-          if (expression.right.callee.property && expression.right.callee.property.name && expression.right.callee.property.name == "asGetProperty") {
+          if (expression.right.callee.property && expression.right.callee.property.name) {
             // Check if loaderInfo is present in the arguemnets, then parameters and finally the flashVar
-            if (expression.right.arguments[1].value == "loaderInfo") {
+            if (["asGetProperty","asCallProperty"].indexOf(expression.right.callee.property.name) > -1 &&
+                ["loaderInfo","LoaderInfo"].indexOf(expression.right.arguments[1].value) > -1) {
+
               flashbangLoaderInfo = expression.left.name;
-            } else if (expression.right.arguments[1].value == "parameters" && flashbangLoaderInfo && expression.right.callee.object.name == flashbangLoaderInfo) {
+
+            } else if (expression.right.callee.property.name == "asGetProperty" &&  // Check if the call is asGetProperty
+                expression.right.arguments[1].value == "parameters" &&  // Check if the property being requested is parameters
+                flashbangLoaderInfo &&  // Check if loaderInfo has already been accessed :P
+                flashbangLoaderInfo == expression.right.callee.object.name) {  // Finally, verify the obj of which parameters is being accessed is loaderInfo
+
               flashbangParameters = expression.left.name;
-            } else if (flashbangParameters && expression.right.callee.object.name == flashbangParameters) {
+              // Calculate the expected namespace for flashVars from the parameters namespace
+              flashbangFlashVarNamespace = expression.right.arguments[0].name.slice(0,2) + (parseInt(expression.right.arguments[0].name.slice(2))+1).toString();
+
+            } else if (expression.right.callee.property.name == "asGetProperty" &&  // Check if the call is asGetProperty
+                flashbangParameters &&  // Check if flashbang parameters had already been accessed :P
+                // Either the call has to be on parameters object (or) namespace has to be same as expected
+                (flashbangParameters == expression.right.callee.object.name || flashbangFlashVarNamespace == expression.right.arguments[0].name)) {
+
               console.logFlashVar(expression.right.arguments[1].value, "AS3-static");
+
             }
           }
         }
