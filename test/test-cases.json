@@ -1,0 +1,29 @@
+[
+    {
+        "title" : "Static flashVar analysis",
+        "url" : "../shumway/examples/inspector/inspector.html?rfile=../yt-shim/yt-shim.swf",
+        "type" : "AS3",
+        "expected" : ["fmt_list", "url_encoded_fmt_stream_map"]
+    },
+
+    {
+        "title" : "Static flashVar analysis (NameSpace Technique)",
+        "url" : "../shumway/examples/inspector/inspector.html?rfile=../../../flash-files/files/ZeroClipboard.swf",
+        "type" : "AS3",
+        "expected" : ["id", "width", "height"]
+    },
+
+    {
+        "title" : "Runtime analysis with Event generation",
+        "url" : "../shumway/examples/inspector/inspector.html?rfile=../../../flash-files/files/finnor.swf&complexDetection=true",
+        "type" : "AS2",
+        "expected" : ["clickTag"]
+    },
+
+    {
+        "title" : "Runtime analysis without Event generation",
+        "url" : "../shumway/examples/inspector/inspector.html?rfile=../../../flash-files/files/redirect.swf&waitFrames=10",
+        "type" : "AS2",
+        "expected" : ["url"]
+    }
+]
