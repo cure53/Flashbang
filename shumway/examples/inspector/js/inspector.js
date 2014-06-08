@@ -22,8 +22,14 @@ var pauseExecution = getQueryVariable("paused") === "true";
 var remoteFile = getQueryVariable("rfile");
 var yt = getQueryVariable('yt');
 
+var flashbangOptions = { 
+  complexDetection : getQueryVariable("complexDetection") === "true",
+  timeOut : parseInt(getQueryVariable("timeOut")),
+  waitFrames : parseInt(getQueryVariable("waitFrames"))
+}
+
 var swfController = new SWFController(timeline, pauseExecution);
-var flashbangController = new FlashbangController(swfController);
+var flashbangController = new FlashbangController(swfController, flashbangOptions);
 
 /** Global sanityTests array, sanity tests add themselves to this */
 var sanityTests = [];
