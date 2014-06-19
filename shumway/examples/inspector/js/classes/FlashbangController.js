@@ -51,11 +51,16 @@ var FlashbangController = (function() {
 
     // Some defaults, will be obtained later
     this.flashVars = []; // Array consisting of flashVars
+    this.sinkCalls = [];
     this.fileName = null; // File name of SWF (required for shumway)
     this.fileBuffer = null; // File Buffer of SWF
 
     // Initialization parameters
     this.state = STATE_INIT; // State necessary to keep track of things to run
+
+    // Functions for alerting results
+    alertFlashVars = null;
+    alertSinkCalls = null;
   }
 
   FlashbangController.prototype = {
@@ -93,6 +98,10 @@ var FlashbangController = (function() {
       }
     },
 
+    addSinkCall: function addSink(func, data) {
+      this.sinkCalls.push([func, data]);
+    },
+
     loadFile: function loadFile(fileName, fileBuffer, movieParams) {  // Just stores file name, buffer and user provided movie params
       this.fileName = fileName;
       this.fileBuffer = fileBuffer;
@@ -112,7 +121,8 @@ var FlashbangController = (function() {
     },
 
     alertResult: function alertResult() { // alert the result, alert will be overriden by parent window
-      alert(this.flashVars);
+      (alertFlashVars) ? alertFlashVars(this.flashVars) : console.log(this.flashVars);
+      (alertSinkCalls) ? alertSinkCalls(this.sinkCalls) : console.log(this.sinkCalls);
     }
   }
 

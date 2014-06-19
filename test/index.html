@@ -19,7 +19,7 @@
     iframe.src = url;
     iframe.sandbox = "allow-scripts allow-same-origin";
     // Override alert with callback, since alert is used to proclaim results
-    iframe.onload = function() { iframe.contentWindow.alert = callback };
+    iframe.onload = function() { iframe.contentWindow.alertFlashVars = callback };
     document.body.appendChild(iframe);
     return iframe;
   }

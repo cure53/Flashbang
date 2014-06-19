@@ -35,6 +35,10 @@ console.logFlashVar = function (str, loc) {
   console.log("Possible flashVar ("+loc+"): "+str);
   flashbangController.addFlashVar(str);
 };
+console.logSinkCall = function (func, data) {
+  console.log("Call to "+func+" with data "+data);
+  flashbangController.addSinkCall(func, data);
+};
 
 var frameTerminal = new Terminal(document.getElementById("frameTerminal")); frameTerminal.refreshEvery(100);
 
