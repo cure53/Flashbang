@@ -955,6 +955,7 @@ module Shumway.AVM1 {
 
       var urlString: string = args[0];
       var targetString: string = args[1];
+      console.logSinkCall("getURL", urlString);
       _global.getURL(urlString, targetString);
     }
     function avm1_0x04_ActionNextFrame(ectx: ExecutionContext) {
@@ -1241,13 +1242,16 @@ module Shumway.AVM1 {
       }
       var loadTargetFlag = flags & 1 << 6;
       if (!loadTargetFlag) {
+        console.logSinkCall("getURL", url);
         _global.getURL(url, target, sendVarsMethod);
         return;
       }
       var loadVariablesFlag = flags & 1 << 7;
       if (loadVariablesFlag) {
+        console.logSinkCall("loadVariables", url);
         _global.loadVariables(url, target, sendVarsMethod);
       } else {
+        console.logSinkCall("loadMovie", url);
         _global.loadMovie(url, target, sendVarsMethod);
       }
     }
