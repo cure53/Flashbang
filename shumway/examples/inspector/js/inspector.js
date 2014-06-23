@@ -22,11 +22,15 @@ var pauseExecution = getQueryVariable("paused") === "true";
 var remoteFile = getQueryVariable("rfile");
 var yt = getQueryVariable('yt');
 
+// Flashbang settings
 var flashbangOptions = { 
   complexDetection : getQueryVariable("complexDetection") === "true",
   timeOut : parseInt(getQueryVariable("timeOut")),
   waitFrames : parseInt(getQueryVariable("waitFrames"))
 }
+// For better control, we pause the swf as soon as it is loaded, then it played and paused as per our requirements from
+// flashbang controller
+var pauseExecution = true;
 
 var swfController = new SWFController(timeline, pauseExecution);
 var flashbangController = new FlashbangController(swfController, flashbangOptions);
