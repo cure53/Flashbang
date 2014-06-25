@@ -19,7 +19,7 @@
     iframe.src = url;
     iframe.sandbox = "allow-scripts allow-same-origin";
     // Override alert with callback, since alert is used to proclaim results
-    iframe.onload = function() { iframe.contentWindow.alertFlashVars = callback };
+    iframe.onload = function() { iframe.contentWindow.alertResults = callback };
     document.body.appendChild(iframe);
     return iframe;
   }
@@ -36,8 +36,8 @@
       QUnit.module(testCase.type); // Seperate tests into modules
       QUnit.asyncTest(testCase.title, function(assert) {
         expect(1);
-        var iframe = prepareIframe(testCase.url, function(data) {
-          assert.deepEqual(testCase.expected, data); // Check the data
+        var iframe = prepareIframe(testCase.url, function(flashVars, sinkCalls, id) {
+          assert.deepEqual(testCase.expected, flashVars); // Check the data
           removeIframe(iframe); // Remove the created iframe
           QUnit.start(); // Proceed with next test
         });

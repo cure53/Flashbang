@@ -26,7 +26,8 @@ var yt = getQueryVariable('yt');
 var flashbangOptions = { 
   complexDetection : getQueryVariable("complexDetection") === "true",
   timeOut : parseInt(getQueryVariable("timeOut")),
-  waitFrames : parseInt(getQueryVariable("waitFrames"))
+  waitFrames : parseInt(getQueryVariable("waitFrames")),
+  id : parseInt(getQueryVariable("id"))
 }
 // For better control, we pause the swf as soon as it is loaded, then it played and paused as per our requirements from
 // flashbang controller

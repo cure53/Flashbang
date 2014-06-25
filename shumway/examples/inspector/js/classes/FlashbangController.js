@@ -48,6 +48,7 @@ var FlashbangController = (function() {
     this.complexDetection = options.complexDetection; // Simple detection as default ;)
     this.timeOut = options.timeOut || 2000; // Default timeOut value is 2000
     this.waitFrames = options.waitFrames || 100; // Default wait frames is 100
+    this.id = options.id || null;
 
     // Some defaults, will be obtained later
     this.flashVars = []; // Array consisting of flashVars
@@ -59,15 +60,25 @@ var FlashbangController = (function() {
     this.state = STATE_INIT; // State necessary to keep track of things to run
 
     // Functions for alerting results
-    alertFlashVars = null;
-    alertSinkCalls = null;
+    alertResults = null;
   }
 
   FlashbangController.prototype = {
 
+    _proclaimResults: function _proclaimResults() {
+      if (alertResults) {
+        alertResults(this.flashVars, this.sinkCalls, this.id);
+      } else {
+        console.log("Obtained FlashVars :");
+        console.log(this.flasVars);
+        console.log("Obtained sinkCalls");
+        console.log(this.sinkCalls);
+      }
+    },
+
     _checkStatus: function _checkStatus() { // Check if results are ready
       if (this.state == STATE_DETECTION && !this.swfController.isPlaying()) { // Sample case: yt-shim during detection
-        this.alertResult();
+        this._proclaimResults();
       }
     },
 
@@ -105,7 +116,7 @@ var FlashbangController = (function() {
     loadFile: function loadFile(fileName, fileBuffer, movieParams) {  // Just stores file name, buffer and user provided movie params
       this.fileName = fileName;
       this.fileBuffer = fileBuffer;
-      this.movieParams = {};
+      this.movieParams = movieParams;
 
       this.detectVars(); // Default run for now ;)
     },
@@ -118,11 +129,6 @@ var FlashbangController = (function() {
       } else { // If simple, no need do anything. yay!!
         this._executeSWF(this.fileName, this.fileBuffer, this.movieParams);
       }
-    },
-
-    alertResult: function alertResult() { // alert the result, alert will be overriden by parent window
-      (alertFlashVars) ? alertFlashVars(this.flashVars) : console.log(this.flashVars);
-      (alertSinkCalls) ? alertSinkCalls(this.sinkCalls) : console.log(this.sinkCalls);
     }
   }
 
