@@ -48,7 +48,7 @@ var FlashbangController = (function() {
     this.complexDetection = options.complexDetection; // Simple detection as default ;)
     this.timeOut = options.timeOut || 2000; // Default timeOut value is 2000
     this.waitFrames = options.waitFrames || 100; // Default wait frames is 100
-    this.id = options.id || null;
+    this.uniqueId = options.uniqueId || null;
 
     // Some defaults, will be obtained later
     this.flashVars = []; // Array consisting of flashVars
@@ -67,11 +67,11 @@ var FlashbangController = (function() {
 
     _proclaimResults: function _proclaimResults() {
       if (alertResults) {
-        alertResults(this.flashVars, this.sinkCalls, this.id);
+        alertResults(this.flashVars, this.sinkCalls, this.uniqueId);
       } else {
         console.log("Obtained FlashVars :");
-        console.log(this.flasVars);
-        console.log("Obtained sinkCalls");
+        console.log(this.flashVars);
+        console.log("Obtained sinkCalls :");
         console.log(this.sinkCalls);
       }
     },
