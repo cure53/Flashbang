@@ -36,6 +36,7 @@ function configureMocks(remoteFile) {
         switch (data.action) {
           case 'eval':
             var expr = data.expression;
+            console.logSinkCall("eval", expr);
             // Needed for some mocking :P
             if (expr){ //(expr.indexOf('jwplayer.utils.tea.decrypt') >= 0) {
               return "<string></string>";
