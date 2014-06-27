@@ -1,0 +1,15 @@
+{
+	"getURL" : [
+		{
+			"payload": "javascript:alert(1)",
+			"regex": "^javascript:alert"
+		}
+	],
+
+	"eval" : [
+		{
+			"payload": "someDummyPayloadWhichHasToBeThereInOnePiece",
+			"regex": "someDummyPayloadWhichHasToBeThereInOnePiece"
+		}
+	]
+}

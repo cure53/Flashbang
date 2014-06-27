@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Flashbang</title>
+</head>
+<body>
+  <div id="openFile" title="Select SWF/ABC file (or drag'n'drop the file on the stage).">
+    Open File
+  </div>
+  <input type="file" id="files" name="files[]" multiple style="visibility: hidden;" accept="application/x-shockwave-flash">
+
+  <script>
+    var SHUMWAY_ROOT = "../shumway/";
+    var INSPECTOR_ROOT = SHUMWAY_ROOT + "examples/inspector/";
+    var INSPECTOR = INSPECTOR_ROOT + "inspector.html";
+    var PAYLOADS = null;
+  </script>
+  <!-- Main controller class -->
+  <script src="js/classes/Controller.js"></script>
+
+  <script src="js/fillers.js"></script>
+  <script src="js/loader.js"></script>
+  <script src="js/flashbang.js"></script>
+
+  <script>
+    // There is no jquery, so a custom function written in loader.js
+    getJSON("payloads.json", function(payloads) { // Have to compile regex in the beginning :P
+      for (var func in payloads) {
+        for (var i = 0; i < payloads[func].length; i++) {
+          payloads[func][i]["regex"] = new RegExp(payloads[func][i]["regex"]);
+        }
+        PAYLOADS = payloads;
+      }
+    });
+  </script>
+</body>
+</html>
