@@ -152,6 +152,9 @@ var Controller = (function() {
       // this.movieParams[uniqueId] <-- is the attribute to use for flashVars to run the SWF
       uniqueId = getRandomString(5);
 
+      // An array used to store present flashVars, so that duplicate values are avoided
+      var flashVarValues = new Array();
+
       // Will be created here and cleaned up after result collection
       this.movieParams[uniqueId] = {};
       this.testRegex[uniqueId] = {};
@@ -159,11 +162,19 @@ var Controller = (function() {
       // Iterate over know vars and populate them with payloads or random data as per our knowledge of the sink
       for (var flashVar in this.vars) {
         var sinkType = this.vars[flashVar]["type"];
-        var lastPayloadIndex = this.vars[flashVar]["lastPayloadIndex"];
+        var lastPayloadIndex = this.vars[flashVar]["lastPayloadIndex"]; // A temporary variable to play with
+        var currentPayloadIndex = null;
 
-        if (sinkType && (++lastPayloadIndex < PAYLOADS[sinkType].length)) {
-          this.movieParams[uniqueId][flashVar] = PAYLOADS[sinkType][lastPayloadIndex]["payload"];
-          this.testRegex[uniqueId][flashVar] = PAYLOADS[sinkType][lastPayloadIndex]["regex"];
+        // Check if there is a sinkType &
+        // if there are untested payloads &
+        // same payload is not already being used in this run
+        if (sinkType &&
+            lastPayloadIndex < (PAYLOADS[sinkType].length - 1) &&
+            flashVarValues.indexOf(PAYLOADS[sinkType][++lastPayloadIndex]["payload"]) == -1) {
+          currentPayloadIndex = ++this.vars[flashVar]["lastPayloadIndex"]; // Increment the index for testing next payload
+          flashVarValues.push(PAYLOADS[sinkType][currentPayloadIndex]["payload"]); // Pushed to check value duplication
+          this.movieParams[uniqueId][flashVar] = PAYLOADS[sinkType][currentPayloadIndex]["payload"];
+          this.testRegex[uniqueId][flashVar] = PAYLOADS[sinkType][currentPayloadIndex]["regex"];
         } else {
           this.movieParams[uniqueId][flashVar] = getRandomString(10);
         }
