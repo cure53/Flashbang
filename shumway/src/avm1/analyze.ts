@@ -111,7 +111,7 @@ module Shumway.AVM1 {
               // Iterate over the arguments and push them accordingly
               for (var i=0; i < action.args.length; i++) {
                 var arg = action.args[i];
-                if (arg instanceof Shumway.AVM1.ParsedPushConstantAction) {
+                if (arg instanceof Shumway.AVM1.ParsedPushConstantAction && flashbangConstantPool) {
                   flashbangStack.push(flashbangConstantPool[arg.constantIndex]);
                 } else {
                   flashbangStack.push(arg);
