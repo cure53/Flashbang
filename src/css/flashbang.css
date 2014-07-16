@@ -1,0 +1,16 @@
+body { 
+    padding-top: 65px; 
+}
+
+/* To seperate buttons in navbar */
+.btn{
+	margin-left:10px;
+}
+
+table {
+	table-layout:fixed;
+}
+
+table td {
+	word-wrap:break-word;
+}

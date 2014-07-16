@@ -48,7 +48,7 @@ var Controller = (function() {
     this.vulns = []; // All vuln flashVar combinations are stored here
 
     // Some parameters for running shumway, which are editable from the interface;
-    this.complexDetection = null;
+    this.complexDetection = false;
     this.waitFrames = null;
     this.timeOut = null;
 
@@ -77,12 +77,15 @@ var Controller = (function() {
     },
 
     _launchShumwayInstance: function _launchShumwayInstance(uniqueId) { // Just launches the shumway inspector page with proper parameters
+      var url = this._buildURL(uniqueId);
+      console.log("------------ Launching new instance ------------");
       // Need to bind everything since all callbacks will be in the context of the iframe but we need our dear controller
-      this.iframes[uniqueId] = prepareIframe(this._buildURL(uniqueId), uniqueId, this._loadSWF.bind(this), this._collectResults.bind(this));
+      this.iframes[uniqueId] = prepareIframe(url, uniqueId, this._loadSWF.bind(this), this._collectResults.bind(this));
     },
 
     _killShumwayInstance: function _killShumwayInstance(uniqueId) {
       // Kill iframe and clean dictionaries, we donot want to end up in memory pressure (pwn2own):P
+      console.log("------------ Killing used instance ------------");
       removeIframe(this.iframes[uniqueId]);
       delete this.movieParams[uniqueId];
       delete this.iframes[uniqueId];
@@ -90,6 +93,8 @@ var Controller = (function() {
     },
 
     _loadSWF: function _loadSWF(iframe, uniqueId) { // A callback used to loadSWF in a shumway instance
+      console.log("Loading movie parameters");
+      console.log(this.movieParams[uniqueId]);
       iframe.contentWindow.flashbangController.loadFile(this.fileName, this.fileBuffer, this.movieParams[uniqueId]);
     },
 
@@ -101,10 +106,14 @@ var Controller = (function() {
     },
 
     _collectResults: function _collectResults(varsArray, sinkCalls, uniqueId) {
+      var varsUpdated = false;
+      var vulnsUpdated = false;
+
       // Iterate over all flashVars detected and add any new ones if present
       for (var i = 0; i < varsArray.length; i++) { // Iterate over obtained vars and add any new ones to our "vars"
         if (!(varsArray[i] in this.vars)) {
           this._addFlashVar(varsArray[i])
+          varsUpdated = true;
         }
       }
 
@@ -118,9 +127,11 @@ var Controller = (function() {
             // If our flashVar data is just present in the sink data, we call it a match and remember the sink
             if (!(this.vars[flashVar]["type"]) && data.indexOf(this.movieParams[uniqueId][flashVar]) > -1) {
               this.vars[flashVar]["type"] = func;
+              varsUpdated = true;
             // We check with the test regex if we are able to get what we wanted
             } else if (this.testRegex[uniqueId][flashVar] && this.testRegex[uniqueId][flashVar].test(data)) {
               this._addVuln(this.movieParams[uniqueId], func, data, flashVar);
+              vulnsUpdated = true;
             }
           }
         }
@@ -128,6 +139,12 @@ var Controller = (function() {
 
       // After the all the checking, just kill the instance and erase all data related to it
       this._killShumwayInstance(uniqueId);
+
+      // Update the UI after killing off the instance
+      if (varsUpdated)
+        updateFlashVarTable();
+      if (vulnsUpdated)
+        updateSinkCallTable();
 
       if (this.vulns.length < 1) // If we get atleast one vuln, bail out for now
         this.fuzzSWF(); // <-- Next iteration

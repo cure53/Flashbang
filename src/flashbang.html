@@ -4,12 +4,140 @@
 <head>
   <meta charset="utf-8">
   <title>Flashbang</title>
+
+  <!-- Bootstrap stuff -->
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/flashbang.css" rel="stylesheet">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <!-- End Bootstrap stuff -->
+
+  <script src="js/beautify.js"></script>
 </head>
 <body>
-  <div id="openFile" title="Select SWF/ABC file (or drag'n'drop the file on the stage).">
-    Open File
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Flashbang</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav pull-right">
+          <li>
+            <div type="button" id="openFile" class="btn btn-primary navbar-btn" title="Select SWF">
+              <span class="glyphicon glyphicon-fire"></span> Fuzz SWF!
+            </div>
+          </li>
+          <li>
+            <div type="button" id="openFile" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#settingsModal">
+              <span class="glyphicon glyphicon-wrench"></span>
+            </div>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
   </div>
+
+  <!-- Settings Modal -->
+  <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="settingsModalLabel">Settings</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="complexDetection" class="col-md-4 control-label">Complex Detection</label>
+              <div class="col-md-8">
+                <input type="checkbox" id="complexDetection"
+                  name="complexDetection" onchange="toggleComplexDetection(this.checked);">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="timeOut" class="col-md-4 control-label">Timeout (in ms)</label>
+              <div class="col-md-8">
+                 <input type="number" min="100" step="100" class="form-control"
+                  name="timeOut" id="timeOut" value="2000" onchange="updateTimeOut(this.value);">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="waitFrames" class="col-md-4 control-label">No. of frames to wait</label>
+              <div class="col-md-8">
+                 <input type="number" min="0" class="form-control"
+                  name="waitFrames" id="waitFrames" value="100" onchange="updateWaitFrames(this.value);">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Settings modal -->
+
+  <!-- Donot bother since this is hidden -->
   <input type="file" id="files" name="files[]" multiple style="visibility: hidden;" accept="application/x-shockwave-flash">
+  <!-- End bothering part -->
+
+  <!-- Container -->
+  <div class="container">
+    <div class="row-fluid">
+      <div class="col-md-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">Detected Sink Calls!</div>
+          <div class="panel-body">
+            <table class="table table-condensed table-hover" id="sinkCallTable">
+              <thead>
+                <tr>
+                  <th style="width:10%">Sink</th>
+                  <th style="width:50%">Data</th>
+                  <th style="width:40%">FlashVars</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">Flash Variables!</div>
+              <div class="panel-body">
+                <table class="table table-condensed table-hover" id="flashVarTable">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Sink</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">Vars as parameters!</div>
+              <div class="panel-body">
+                <pre id="flashVarsUrl"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End container -->
 
   <script>
     var SHUMWAY_ROOT = "../shumway/";
@@ -19,14 +147,14 @@
   </script>
   <!-- Main controller class -->
   <script src="js/classes/Controller.js"></script>
+  <script src="js/classes/Terminal.js"></script>
 
   <script src="js/fillers.js"></script>
   <script src="js/loader.js"></script>
   <script src="js/flashbang.js"></script>
 
   <script>
-    // There is no jquery, so a custom function written in loader.js
-    getJSON("payloads.json", function(payloads) { // Have to compile regex in the beginning :P
+    $.getJSON("payloads.json", function(payloads) { // Have to compile regex in the beginning :P
       for (var func in payloads) {
         for (var i = 0; i < payloads[func].length; i++) {
           payloads[func][i]["regex"] = new RegExp(payloads[func][i]["regex"]);

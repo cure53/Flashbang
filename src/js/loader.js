@@ -13,13 +13,6 @@ function readFile(file) {
   reader.readAsArrayBuffer(file);
 }
 
-function getJSON(path, callback) {
-  var xhr = new XMLHttpRequest({mozSystem:true});
-  xhr.open("GET", path, true);
-  xhr.onload = function() { callback(JSON.parse(this.responseText)); };
-  xhr.send();
-}
-
 document.body.addEventListener("dragenter", function(event) {
   event.stopPropagation();
   event.preventDefault();
@@ -40,7 +33,7 @@ document.body.addEventListener("drop", function(event) {
 document.getElementById("files").addEventListener("change", function(event) {
   var file = event.target.files[0];
   readFile(file);
-  document.getElementById('openFile').setAttribute('hidden', true);
+  document.getElementById('openFile').style.display = 'none';
 });
 
 document.getElementById("openFile").addEventListener("click", function () {
