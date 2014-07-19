@@ -295,6 +295,12 @@ var Stubs = new (function () {
     M("avm1lib.AS2Color"),
     M("avm1lib.AS2Globals", "AS2Globals", AS2GlobalsDefinition),
     M("avm1lib.AS2MovieClipLoader", "AS2MovieClipLoader", AS2MovieClipLoaderDefinition),
+
+    // Sorry, flashbang area now. The following were created just to create class mockery, the
+    // APIs are not implemented.
+    M("flash.net.FileReferenceList", "FileReferenceListClass", FileReferenceListDefinition),
+    M("flash.net.FileReference", "FileReferenceClass", FileReferenceDefinition),
+
   ].forEach(function (m) {
     var className = Multiname.fromSimpleName(m.classSimpleName);
     var path = className.getOriginalName().split(".");
