@@ -86,51 +86,56 @@
   <!-- Container -->
   <div class="container">
     <div class="row-fluid">
-      <div class="col-md-8">
-        <div class="panel panel-default">
-          <div class="panel-heading">Detected Sink Calls!</div>
-          <div class="panel-body">
-            <table class="table table-condensed table-hover" id="sinkCallTable">
-              <thead>
-                <tr>
-                  <th style="width:10%">Sink</th>
-                  <th style="width:50%">Data</th>
-                  <th style="width:40%">FlashVars</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="panel panel-default">
-              <div class="panel-heading">Flash Variables!</div>
-              <div class="panel-body">
-                <table class="table table-condensed table-hover" id="flashVarTable">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Sink</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-              </div>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-pills" role="tablist">
+        <li class="active"><a href="#flashVars" role="tab" data-toggle="tab">Flash Vars!</a></li>
+        <li><a href="#sinkCalls" role="tab" data-toggle="tab">Sink Calls!</a></li>
+        <li><a href="#paramsUrl" role="tab" data-toggle="tab">Parameters in URL</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="sinkCalls">
+          <div class="row-fluid">
+            <div class="col-md-12">
+              <table class="table table-condensed table-hover" id="sinkCallTable">
+                <thead>
+                  <tr>
+                    <th style="width:10%">Sink</th>
+                    <th style="width:50%">Data</th>
+                    <th style="width:40%">FlashVars</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="panel panel-default">
-              <div class="panel-heading">Vars as parameters!</div>
-              <div class="panel-body">
-                <pre id="flashVarsUrl"></pre>
-              </div>
+
+        <div class="tab-pane fade" id="flashVars">
+          <div class="row-fluid">
+            <div class="col-md-12">
+              <table class="table table-condensed table-hover" id="flashVarTable">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Sink</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="paramsUrl">
+          <div class="row">
+          </br>
+            <div class="col-md-12">
+              <pre id="flashVarsUrl"></pre>
             </div>
           </div>
         </div>
