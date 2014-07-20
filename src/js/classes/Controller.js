@@ -140,10 +140,10 @@ var Controller = (function() {
       // After the all the checking, just kill the instance and erase all data related to it
       this._killShumwayInstance(uniqueId);
 
-      // Update the UI after killing off the instance
-      if (varsUpdated)
+      // Update the UI after killing off the instance, check if UI part exists because we can become headless o.O
+      if (varsUpdated && updateFlashVarTable)
         updateFlashVarTable();
-      if (vulnsUpdated)
+      if (vulnsUpdated && updateSinkCallTable)
         updateSinkCallTable();
 
       if (this.vulns.length < 1) // If we get atleast one vuln, bail out for now
