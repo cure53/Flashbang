@@ -44,3 +44,7 @@ function updateSinkCallTable() {
                                         "</pre></td></tr>");
   });
 }
+
+function updateStatus(status) {
+  document.getElementById("status").innerHTML = status;
+}

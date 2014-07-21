@@ -88,6 +88,19 @@ var Controller = (function() {
       return(!duplicate); // Return the boolean
     },
 
+    _updateState: function _updateState(state) {
+      this.state = state;
+      if (updateStatus) { // Might go headless sometimes
+        var status = "Select a file";
+        if (this.state == STATE_FUZZING) {
+          status = "Fuzzing in process";
+        } else if (this.state == STATE_DONE) {
+          status = "Done, check results"
+        }
+        updateStatus(status);
+      }
+    },
+
     _buildURL: function _buildURL(uniqueId) { // INSPECTOR is a global, remember all caps means global
       var url = INSPECTOR + "?uniqueId=" + uniqueId; // Present in flashbang.html
       if (this.complexDetection) url = url + "&complexDetection=true";
@@ -173,6 +186,8 @@ var Controller = (function() {
 
       if (varsUpdated || vulnsUpdated) {// If we nothing in the last round, bail out
         this.fuzzSWF(); // <-- Next iteration
+      } else {
+        this._updateState(STATE_DONE);
       }
     },
 
@@ -184,7 +199,7 @@ var Controller = (function() {
     },
 
     run: function run() {
-      this.state = STATE_FUZZING; // Change state to fuzzing
+      this._updateState(STATE_FUZZING); // Change state to fuzzing
       this.fuzzSWF();
     },
 

@@ -34,6 +34,8 @@ document.getElementById("files").addEventListener("change", function(event) {
   var file = event.target.files[0];
   readFile(file);
   document.getElementById('openFile').style.display = 'none';
+  document.getElementById('fileBtnRow').style.display = 'none';
+  document.getElementById('flashbangDataRow').style.display = 'block';
 });
 
 document.getElementById("openFile").addEventListener("click", function () {
