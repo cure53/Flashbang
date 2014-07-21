@@ -58,14 +58,34 @@ var Controller = (function() {
 
   Controller.prototype = {
 
-    _addVuln: function _addVuln(flashVars, sinkFunc, sinkData, flashVar) { // Add vulnerable set of flashVars
-      this.vulns.push({
-        "flashVars":flashVars, // All the flashVars and their values which are passed
-        "sink":sinkFunc, // The sink which caused this vuln
-        "sinkData":sinkData, // The data which ended up in the sink
-        "vulnVar":flashVar // The possible flashVar which might have caused this
-        // TODO: Assert with assurance for the bad flashVar
-      })
+    _addVuln: function _addVuln(flashVars, sink, sinkData, vulnVar) { // Add vulnerable set of flashVars
+      // We might get duplicates here, so filtering should be done here itself
+      var replacedSinkData = sinkData;
+      var duplicate = false; // Variable which holds the boolean
+
+      for (var flashVar in flashVars) { // Replace all the flashVar values with flashVars in sinkData
+        replacedSinkData = replacedSinkData.replace(flashVars[flashVar], "@@@"+flashVar+"@@@");
+      }
+
+      for (var i=0; i<this.vulns.length; i++) { // Use the replaced replacedSinkData to check for duplicates
+        if ((sink == this.vulns[i]["sink"]) && // If sink func is same and
+            (vulnVar == this.vulns[i]["vulnVar"]) && // if vulnerable var is same and
+            (replacedSinkData == this.vulns[i]["replacedSinkData"])) { // if replacedSinkData is same
+          duplicate = true; // Definitely a duplicate
+        }
+      }
+
+      if (!duplicate) { // Add only if not duplicate
+        this.vulns.push({
+          "flashVars":flashVars, // All the flashVars and their values which are passed
+          "sink":sink, // The sink which caused this vuln
+          "sinkData":sinkData, // The data which ended up in the sink
+          "replacedSinkData":replacedSinkData, // FlashVar values are replaced by the flashvars enclosed by "@@@"
+          "vulnVar":vulnVar // The possible flashVar which might have caused this
+          // TODO: Assert with assurance for the bad flashVar
+        });
+      }
+      return(!duplicate); // Return the boolean
     },
 
     _buildURL: function _buildURL(uniqueId) { // INSPECTOR is a global, remember all caps means global
@@ -130,8 +150,13 @@ var Controller = (function() {
               varsUpdated = true;
             // We check with the test regex if we are able to get what we wanted
             } else if (this.testRegex[uniqueId][flashVar] && this.testRegex[uniqueId][flashVar].test(data)) {
-              this._addVuln(this.movieParams[uniqueId], func, data, flashVar);
-              vulnsUpdated = true;
+              // Deduplication is done inside the method
+              // Why use vulnAdded instead of using vulnsUpdated ??
+              // Think??
+              // Think??
+              // If same vuln appears twice in a run, this logic will only work
+              var vulnAdded = this._addVuln(this.movieParams[uniqueId], func, data, flashVar);
+              if (vulnAdded) vulnsUpdated = true;
             }
           }
         }
@@ -146,8 +171,9 @@ var Controller = (function() {
       if (vulnsUpdated && updateSinkCallTable)
         updateSinkCallTable();
 
-      if (this.vulns.length < 1) // If we get atleast one vuln, bail out for now
+      if (varsUpdated || vulnsUpdated) {// If we nothing in the last round, bail out
         this.fuzzSWF(); // <-- Next iteration
+      }
     },
 
     loadFile: function loadFile(fileName, fileBuffer) {  // Just stores file name, buffer and user provided movie params
