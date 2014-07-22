@@ -91,13 +91,7 @@ var Controller = (function() {
     _updateState: function _updateState(state) {
       this.state = state;
       if (updateStatus) { // Might go headless sometimes
-        var status = "Select a file";
-        if (this.state == STATE_FUZZING) {
-          status = "Fuzzing in process";
-        } else if (this.state == STATE_DONE) {
-          status = "Done, check results"
-        }
-        updateStatus(status);
+        updateStatus(state);
       }
     },
 
