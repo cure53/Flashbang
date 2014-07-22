@@ -33,9 +33,10 @@ document.body.addEventListener("drop", function(event) {
 document.getElementById("files").addEventListener("change", function(event) {
   var file = event.target.files[0];
   readFile(file);
-  document.getElementById('openFile').style.display = 'none';
-  document.getElementById('fileBtnRow').style.display = 'none';
-  document.getElementById('flashbangDataRow').style.display = 'block';
+  document.getElementById('openFile').style.display = 'none'; // Hide the open file button
+  document.getElementById('fileBtnRow').style.display = 'none'; // Hide the whole button row :P
+  document.getElementById('flashbangDataRow').style.display = 'block'; // Display the flashbang data tables
+  document.getElementById('closeBtn').style.display = 'block'; // Display the close button
 });
 
 document.getElementById("openFile").addEventListener("click", function () {
