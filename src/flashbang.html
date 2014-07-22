@@ -84,11 +84,25 @@
   <div class="container">
     <!-- Donot bother since this is hidden once flash file is opened -->
     <div id="fileBtnRow" class="row-fluid">
-      <div class="col-md-2 col-md-offset-5">
-        <div type="button" id="openFile" class="btn btn-primary btn-lg" title="Select SWF">
-          <span class="glyphicon glyphicon-fire"></span> Open SWF!
+
+      <!-- Any potential warning can be displayed here -->
+      <div class="row-fluid">
+        <div class="col-md-6 col-md-offset-3 alert alert-warning">
+          <p class="text-center">
+            <strong>WARNING!!</strong> Flashbang might not work in firefox because of a known
+            <a href="https://github.com/cure53/Flashbang/issues/11" target="_blank">bug</a>
+          </p>
         </div>
-        <input type="file" id="files" name="files[]" multiple style="visibility: hidden;" accept="application/x-shockwave-flash">
+      </div>
+      <!-- End of potential warning -->
+
+      <div class="row-fluid">
+        <div class="col-md-2 col-md-offset-5">
+          <div type="button" id="openFile" class="btn btn-primary btn-lg" title="Select SWF">
+            <span class="glyphicon glyphicon-fire"></span> Open SWF!
+          </div>
+          <input type="file" id="files" name="files[]" multiple style="visibility: hidden;" accept="application/x-shockwave-flash">
+        </div>
       </div>
     </div>
     <!-- End bothering part -->
