@@ -19,6 +19,14 @@ Flashbang is still in alpha stadium so things might be a bit edgy there and wher
 + Run a file by clicking "Open SWF"
 + Flashbang will then show you the flashVars and you can start testing for XSS or alike
 
+Testing
+=====
+
+To play with Flashbang you need Flash files. Obviously. 
+If you don't have any at hands right now, we can offer you a fine selection of vulnerable files right here:
+
+https://github.com/cure53/Flashbang/tree/master/flash-files/files
+
 Bugs
 =====
 
