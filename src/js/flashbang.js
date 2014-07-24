@@ -67,6 +67,10 @@ function rerunAnalysis() {
   controller.rerun();
 }
 
+function promptBugReport() {
+  $("#bugReport").show();
+}
+
 // Spinner code
 
 var opts = {
@@ -99,6 +103,8 @@ function updateStatus(state) {
     case 2: // Fuzzing finished
       spinner.stop();
       showElements("afterFuzz");
+      // Bug Test - If 0 flashVars prompt user for a bug report
+      if (Object.keys(controller.vars).length == 0) promptBugReport();
       break;
   }
 }
