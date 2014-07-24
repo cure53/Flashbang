@@ -57,21 +57,22 @@
         <div class="modal-body">
           <form class="form-horizontal" role="form">
             <div class="form-group">
-              <label for="complexDetection" class="col-md-4 control-label">Complex Detection</label>
+              <label for="complexDetection" class="col-md-4 control-label" rel="tooltip"
+                title="Includes generation of keyboard and mouse events on display objects for greater flashVar coverage, might be slow but effective">Complex Detection</label>
               <div class="col-md-8">
                 <input type="checkbox" id="complexDetection"
                   name="complexDetection" onchange="toggleComplexDetection(this.checked);">
               </div>
             </div>
             <div class="form-group">
-              <label for="timeOut" class="col-md-4 control-label">Timeout (in ms)</label>
+              <label for="timeOut" class="col-md-4 control-label" rel="tooltip" title="Time to wait before closing the flash file, eg. If a flash file has longer initial animations we might have to wait for longer duration for flashVar access">Timeout (in ms)</label>
               <div class="col-md-8">
                  <input type="number" min="100" step="100" class="form-control"
                   name="timeOut" id="timeOut" value="2000" onchange="updateTimeOut(this.value);">
               </div>
             </div>
             <div class="form-group">
-              <label for="waitFrames" class="col-md-4 control-label">No. of frames to wait</label>
+              <label for="waitFrames" class="col-md-4 control-label" rel="tooltip" title="Number of frames to wait before generation of different types of events on display objects">No. of frames to wait</label>
               <div class="col-md-8">
                  <input type="number" min="0" class="form-control"
                   name="waitFrames" id="waitFrames" value="100" onchange="updateWaitFrames(this.value);">
