@@ -32,7 +32,7 @@
             </div>
           </li>
           <li>
-            <button type="button" id="closeBtn" class="btn btn-danger navbar-btn" style="display: none" onclick="location.reload();">
+            <button type="button" class="btn btn-danger navbar-btn duringFuzz afterFuzz" style="display: none" onclick="location.reload();">
               <span class="glyphicon glyphicon-remove"></span> Close SWF
             </button>
           </li>
@@ -84,7 +84,7 @@
   <!-- Container -->
   <div class="container">
     <!-- Donot bother since this is hidden once flash file is opened -->
-    <div id="fileBtnRow" class="row-fluid">
+    <div class="row-fluid beforeFuzz">
 
       <!-- Any potential warning can be displayed here -->
       <div class="row-fluid">
@@ -108,7 +108,7 @@
     </div>
     <!-- End bothering part -->
 
-    <div id="flashbangDataRow" style="display: none;" class="row-fluid">
+    <div class="duringFuzz afterFuzz" style="display: none;" class="row-fluid">
 
       <!-- Nav tabs -->
       <ul class="nav nav-pills" role="tablist">

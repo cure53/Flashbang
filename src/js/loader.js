@@ -33,10 +33,8 @@ document.body.addEventListener("drop", function(event) {
 document.getElementById("files").addEventListener("change", function(event) {
   var file = event.target.files[0];
   readFile(file);
-  document.getElementById('openFile').style.display = 'none'; // Hide the open file button
-  document.getElementById('fileBtnRow').style.display = 'none'; // Hide the whole button row :P
-  document.getElementById('flashbangDataRow').style.display = 'block'; // Display the flashbang data tables
-  document.getElementById('closeBtn').style.display = 'block'; // Display the close button
+  // Added new classes named beforeFuzz, duringFuzz & afterFuzz
+  showElements("duringFuzz");
 });
 
 document.getElementById("openFile").addEventListener("click", function () {

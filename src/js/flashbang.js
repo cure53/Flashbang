@@ -3,6 +3,19 @@
 
 var controller = new Controller(); // <-- This is the main kid in the block
 
+// Also hide everything non relavent
+showElements("beforeFuzz");
+
+function showElements(className) {
+  var validClasses = ["beforeFuzz", "duringFuzz", "afterFuzz"];
+  for (var i = 0; i < validClasses.length; i++) {
+    if (className == validClasses[i]) {
+      $("." + validClasses[i]).show();
+    } else {
+      $("." + validClasses[i]).not($("." + className)).hide();
+    }
+  }
+}
 function toggleComplexDetection(boolValue) {
   controller.complexDetection = boolValue;
 }
@@ -75,6 +88,7 @@ function updateStatus(state) {
       break;
     case 2: // Fuzzing finished
       spinner.stop();
+      showElements("afterFuzz");
       break;
   }
 }
