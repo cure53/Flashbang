@@ -58,6 +58,11 @@ var Controller = (function() {
 
   Controller.prototype = {
 
+    _resetData: function _resetData() {
+      this.vars = {};
+      this.vulns = [];
+    },
+
     _addVuln: function _addVuln(flashVars, sink, sinkData, vulnVar) { // Add vulnerable set of flashVars
       // We might get duplicates here, so filtering should be done here itself
       var replacedSinkData = sinkData;
@@ -194,6 +199,12 @@ var Controller = (function() {
 
     run: function run() {
       this._updateState(STATE_FUZZING); // Change state to fuzzing
+      this.fuzzSWF();
+    },
+
+    rerun: function rerun() { // Reset the data and run again
+      this._resetData();
+      this._updateState(STATE_FUZZING);
       this.fuzzSWF();
     },
 

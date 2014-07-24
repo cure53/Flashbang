@@ -16,6 +16,7 @@ function showElements(className) {
     }
   }
 }
+
 function toggleComplexDetection(boolValue) {
   controller.complexDetection = boolValue;
 }
@@ -56,6 +57,10 @@ function updateSinkCallTable() {
                                             js_beautify(JSON.stringify(vuln['flashVars']), {"indent_size":2})+
                                         "</pre></td></tr>");
   });
+}
+
+function rerunAnalysis() {
+  controller.rerun();
 }
 
 // Spinner code
