@@ -17,6 +17,10 @@ function showElements(className) {
   }
 }
 
+function displayFileName(name) {
+  $("#fileName").text(name);
+}
+
 function toggleComplexDetection(boolValue) {
   controller.complexDetection = boolValue;
 }
@@ -90,6 +94,7 @@ function updateStatus(state) {
   switch (state) {
     case 1: // Fuzzing started or going on
       spinner = new Spinner(opts).spin(document.getElementById("status"));
+      showElements("duringFuzz");
       break;
     case 2: // Fuzzing finished
       spinner.stop();

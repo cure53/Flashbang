@@ -32,6 +32,7 @@ document.body.addEventListener("drop", function(event) {
 
 document.getElementById("files").addEventListener("change", function(event) {
   var file = event.target.files[0];
+  displayFileName(file.name);
   readFile(file);
   // Added new classes named beforeFuzz, duringFuzz & afterFuzz
   showElements("duringFuzz");

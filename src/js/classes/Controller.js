@@ -204,8 +204,8 @@ var Controller = (function() {
 
     rerun: function rerun() { // Reset the data and run again
       this._resetData();
-      this._updateState(STATE_FUZZING);
-      this.fuzzSWF();
+      this._updateState(STATE_INIT);
+      this.run();
     },
 
     fuzzSWF: function fuzzSWF() {
