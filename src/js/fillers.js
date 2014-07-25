@@ -60,3 +60,31 @@ if (!String.prototype.endsWith) {
     }
   }());
 }
+
+if (!String.prototype.padLeft) {
+  String.prototype.padLeft = function(c, n) {
+    s = String(this);
+    if (!c || s.length >= n) {
+      return s;
+    }
+    var max = (n - s.length) / c.length;
+    for (var i = 0; i < max; i++) {
+      s = c + s;
+    }
+    return s;
+  };
+}
+
+if (!String.prototype.padRight) {
+  String.prototype.padRight = function(c, n) {
+    s = String(this);
+    if (!c || s.length >= n) {
+      return s;
+    }
+    var max = (n - s.length) / c.length;
+    for (var i = 0; i < max; i++) {
+      s += c;
+    }
+    return s;
+  };
+}

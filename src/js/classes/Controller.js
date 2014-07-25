@@ -16,6 +16,9 @@ var Controller = (function() {
     iframe.sandbox = "allow-scripts allow-same-origin";
     // Override alert with callback, since alert is used to proclaim results
     iframe.onload = function() {
+      iframe.contentWindow.console.log = console.log;
+      iframe.contentWindow.console.warn = console.warn;
+      iframe.contentWindow.console.info = console.info
       iframe.contentWindow.alertResults = resultsCallback;
       onLoadCallback(iframe, uniqueId);
     };

@@ -130,7 +130,7 @@
     </div>
     <!-- End bothering part -->
 
-    <div class="duringFuzz afterFuzz" style="display: none;" class="row-fluid">
+    <div class="row-fluid duringFuzz afterFuzz">
 
       <!-- Nav tabs -->
       <ul class="nav nav-pills" role="tablist">
@@ -186,6 +186,22 @@
         </div>
       </div>
     </div>
+
+    <!-- Horizontal Rule -->
+    <div class="row-fluid duringFuzz afterFuzz">
+      <div class="col-md-12">
+        <hr>
+      </div>
+    </div>
+    <!-- End horizontal rule -->
+
+    <!-- Trace terminal -->
+    <div class="row-fluid duringFuzz afterFuzz">
+      <div class="col-md-12">
+        <canvas width="1100" height="400" id="traceTerminal"></canvas>
+      </div>
+    </div>
+    <!-- End trace terminal -->
   </div>
   <!-- End container -->
 
@@ -197,9 +213,11 @@
   </script>
   <!-- Main controller class -->
   <script src="js/classes/Controller.js"></script>
+  <script src="js/classes/Terminal.js"></script>
 
   <script src="js/fillers.js"></script>
   <script src="js/loader.js"></script>
+  <script src="js/logging.js"></script>
   <script src="js/flashbang.js"></script>
 
   <script>
