@@ -6,6 +6,17 @@ var controller = new Controller(); // <-- This is the main kid in the block
 // Also hide everything non relavent
 showElements("beforeFuzz");
 
+// Check if firefox and show warning
+(function () {
+  var browser = navigator.userAgent.toLowerCase();
+  var warning = $("#firefoxWarning");
+  if (browser.indexOf("firefox") > -1) {
+    warning.show();
+  } else {
+    warning.hide();
+  }
+})();
+
 function showElements(className) {
   var validClasses = ["beforeFuzz", "duringFuzz", "afterFuzz"];
   for (var i = 0; i < validClasses.length; i++) {
