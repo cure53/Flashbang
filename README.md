@@ -2,14 +2,23 @@ Flashbang
 =========
 
 Welcome to project "Flashbang". This tool is an open-source Flash-security helper with a very specific purpose:
-Find the flashVars of a naked SWF and display them so a security tester can start hacking away without decompiling the code.
+Find the `flashVars` of a naked SWF and display them, so a security tester can start hacking away without decompiling the code.
 
-Flashbang is built upon Mozilla's Shumway project. It runs in the browser but has a bunch of requirements. See link below.
+Flashbang is built upon [Mozilla's Shumway](http://mozilla.github.io/shumway/) project. It runs in the browser but has a bunch of requirements to work properly. See the links below.
 
-How To Run It?
+How To Run Flashbang?
 =====
 
-Flashbang is still in alpha stadium so things might be a bit edgy there and where. Here's how to setup and run Flashbang (no worries, it takes about 5 minutes to get it running):
+Just use our public tool and feed it SWF files: https://cure53.de/flashbang
+
+No files will be ever uploaded to any server, it all happens in the browser. So no worries. 
+You still do worry? Good. You can also install it locally of course. Check below on how to do that.
+
+
+How to Install Flashbang locally?
+=====
+
+Flashbang is still in alpha stage so things might be a bit edgy there and where. Here's how to setup and run Flashbang (no worries, it takes about 5 minutes to get it running):
 
 + Clone the repo using the `--recursive` flag, so that all necessary submodules are cloned as well
 + Ideally clone it into an Apache web-root (or any other web server)
@@ -19,7 +28,7 @@ Flashbang is still in alpha stadium so things might be a bit edgy there and wher
 + Run a file by clicking "Open SWF"
 + Flashbang will then show you the flashVars and you can start testing for XSS or alike
 
-Testing
+Testing Flashbang
 =====
 
 To play with Flashbang you need Flash files. Obviously. 
