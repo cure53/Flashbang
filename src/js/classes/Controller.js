@@ -36,6 +36,11 @@ var Controller = (function() {
     return Math.random().toString(36).substr(2, n);
   }
 
+  // Returns a random number between 1 & 10000
+  function getRandomNumber() {
+    return Math.floor((Math.random() * 10000) + 1);
+  }
+
   var Controller = function() {
   // Naming this Controller to avoid confusion with FlashbangController which is a part of shumway
     this.fileName = null; // File name of SWF (required for shumway)
@@ -242,7 +247,7 @@ var Controller = (function() {
           this.movieParams[uniqueId][flashVar] = PAYLOADS[sinkType][currentPayloadIndex]["payload"];
           this.testRegex[uniqueId][flashVar] = PAYLOADS[sinkType][currentPayloadIndex]["regex"];
         } else {
-          this.movieParams[uniqueId][flashVar] = getRandomString(10);
+          this.movieParams[uniqueId][flashVar] = getRandomNumber().toString(); // getRandomString(10);
         }
       }
 
