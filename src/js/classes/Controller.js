@@ -11,7 +11,7 @@ var Controller = (function() {
   // Prepare an iframe will respective callbacks
   function prepareIframe(url, uniqueId, onLoadCallback, resultsCallback) {
     var iframe = document.createElement('iframe');
-    iframe.style.display = 'hidden'; // Keep it hidden
+    iframe.style.visibility = 'hidden'; // Keep it hidden
     iframe.src = url;
     iframe.sandbox = "allow-scripts allow-same-origin";
     // Override alert with callback, since alert is used to proclaim results
