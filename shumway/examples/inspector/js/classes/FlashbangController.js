@@ -46,7 +46,7 @@ var FlashbangController = (function() {
 
     // Flashbang options obtained from url
     this.complexDetection = options.complexDetection; // Simple detection as default ;)
-    this.timeOut = options.timeOut || 2000; // Default timeOut value is 2000
+    this.timeOut = options.timeOut || 8000; // Default timeOut value is 8000
     this.waitFrames = options.waitFrames || 100; // Default wait frames is 100
     this.uniqueId = options.uniqueId || null;
 
