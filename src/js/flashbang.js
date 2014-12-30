@@ -3,11 +3,8 @@
 
 var controller = new Controller(); // <-- This is the main kid in the block
 
-// Also hide everything non relavent
-showElements("beforeFuzz");
-
 function showElements(className) {
-  var validClasses = ["beforeFuzz", "duringFuzz", "afterFuzz"];
+  var validClasses = ["preload", "beforeFuzz", "duringFuzz", "afterFuzz"];
   for (var i = 0; i < validClasses.length; i++) {
     if (className == validClasses[i]) {
       $("." + validClasses[i]).show();
@@ -108,3 +105,21 @@ function updateStatus(state) {
       break;
   }
 }
+
+// Relatively big files which on preloading will give better user exp. on slow internet connection
+function cacheLargeFiles() {
+  // Start spinner to show loading in progress
+  spinner = new Spinner(opts).spin(document.getElementById("status"));
+  showElements("preload");
+  $.when(
+    $.get("../shumway/build/playerglobal/playerglobal.abcs"),
+    $.get("../shumway/build/playerglobal/playerglobal.json"),
+    $.get("../shumway/src/avm2/generated/builtin/builtin.abc")).done(function() {
+      spinner.stop();
+      // Also hide everything non relavent
+      showElements("beforeFuzz");
+    });
+}
+
+$(document).ready(cacheLargeFiles);
+
