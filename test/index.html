@@ -37,7 +37,9 @@
       QUnit.asyncTest(testCase.title, function(assert) {
         expect(1);
         var iframe = prepareIframe(testCase.url, function(flashVars, sinkCalls, id) {
-          assert.deepEqual(testCase.expected, flashVars); // Check the data
+          // Depending upon the test necessity confirm the data
+	  if (testCase.hasOwnProperty("flashVars")) assert.deepEqual(testCase.flashVars, flashVars); // Check the data
+	  if (testCase.hasOwnProperty("sinkCalls")) assert.deepEqual(testCase.sinkCalls, sinkCalls); // Check the data
           removeIframe(iframe); // Remove the created iframe
           QUnit.start(); // Proceed with next test
         });

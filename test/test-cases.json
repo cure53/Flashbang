@@ -3,34 +3,46 @@
         "title" : "YT-Shim - Static flashVar analysis",
         "url" : "../shumway/examples/inspector/inspector.html?rfile=../yt-shim/yt-shim.swf",
         "type" : "AS3",
-        "expected" : ["fmt_list", "url_encoded_fmt_stream_map"]
+        "flashVars" : ["fmt_list", "url_encoded_fmt_stream_map"]
     },
 
     {
         "title" : "ZeroClipboard - Static flashVar analysis (NameSpace Technique)",
         "url" : "../shumway/examples/inspector/inspector.html?rfile=../../../flash-files/files/ZeroClipboard.swf",
         "type" : "AS3",
-        "expected" : ["id", "width", "height"]
+        "flashVars" : ["id", "width", "height"]
     },
 
     {
         "title" : "Ad - Runtime analysis with Event generation",
         "url" : "../shumway/examples/inspector/inspector.html?rfile=../../../flash-files/files/finnor.swf&complexDetection=true",
         "type" : "AS2",
-        "expected" : ["clickTag"]
+        "flashVars" : ["clickTag"]
     },
 
     {
         "title" : "Redirect - Runtime analysis without Event generation",
         "url" : "../shumway/examples/inspector/inspector.html?rfile=../../../flash-files/files/redirect.swf&waitFrames=10",
         "type" : "AS2",
-        "expected" : ["url"]
+        "flashVars" : ["url"]
     },
 
     {
         "title" : "BrightCovePlayer - Runtime & Static analysis without Event generation",
         "url" : "../shumway/examples/inspector/inspector.html?rfile=../../../flash-files/files/brightcoveplayer.swf",
         "type" : "AS3",
-        "expected" : ["_flashVars", "secureConnections", "isSlim", "isVid", "isAudio", "isUI", "cookieComments", "useClientSideBandwidthDetection", "uniqueSWFIdentifier"]
+        "flashVars" : ["_flashVars", "secureConnections", "isSlim", "isVid", "isAudio", "isUI", "cookieComments", "useClientSideBandwidthDetection", "uniqueSWFIdentifier"]
+    },
+
+    {
+        "title" : "Jplayer sink call detection",
+        "url" : "../shumway/examples/inspector/inspector.html?rfile=../../../flash-files/files/Jplayer.swf?jQuery=confirm&id=random-id');confirm();//&vol=0.8&muted=false&.swf",
+        "type" : "Eval",
+        "sinkCalls" : [
+	  [
+            "eval",
+	    "try {__flash__toXML(undefined('#random-id');confirm();//').jPlayer(\"jPlayerFlashEvent\",\"jPlayer_ready\",({muted:false,volume:0.8,duration:0,currentTime:0,currentPercentAbsolute:0,currentPercentRelative:0,seekPercent:0,srcSet:false,paused:true,src:\"\",version:\"2.0.9\"})));} catch (e) {\"<undefined/>\";}"
+          ]
+	]
     }
 ]
