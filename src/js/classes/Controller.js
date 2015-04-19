@@ -8,28 +8,7 @@ var Controller = (function() {
   var STATE_FUZZING = 1; // Payload testing stage, i.e final fuzzing state
   var STATE_DONE = 2; // Finished state
 
-  // Prepare an iframe will respective callbacks
-  function prepareIframe(url, uniqueId, onLoadCallback, resultsCallback) {
-    var iframe = document.createElement('iframe');
-    iframe.style.visibility = 'hidden'; // Keep it hidden
-    iframe.src = url;
-    iframe.sandbox = "allow-scripts allow-same-origin";
-    // Override alert with callback, since alert is used to proclaim results
-    iframe.onload = function() {
-      iframe.contentWindow.console.log = console.log;
-      iframe.contentWindow.console.warn = console.warn;
-      iframe.contentWindow.console.info = console.info
-      iframe.contentWindow.alertResults = resultsCallback;
-      onLoadCallback(iframe, uniqueId);
-    };
-    document.body.appendChild(iframe);
-    return iframe;
-  }
 
-  // Remove an iframe
-  function removeIframe(iframe) {
-    document.body.removeChild(iframe);
-  }
 
   // Get random strings of length n, used for uniqueId and initial sink detection calls
   function getRandomString(n) {
@@ -108,8 +87,33 @@ var Controller = (function() {
       }
     },
 
+    // Prepare an iframe will respective callbacks
+    _prepareFrame: function _prepareFrame(url, uniqueId) {
+      var iframe = document.createElement('iframe');
+      var onLoadCallback = this._loadSWF.bind(this);
+      var resultsCallback = this._collectResults.bind(this);
+      iframe.style.visibility = 'hidden'; // Keep it hidden
+      iframe.src = url;
+      iframe.sandbox = "allow-scripts allow-same-origin";
+      // Override alert with callback, since alert is used to proclaim results
+      iframe.onload = function() {
+        iframe.contentWindow.console.log = console.log;
+        iframe.contentWindow.console.warn = console.warn;
+        iframe.contentWindow.console.info = console.info
+        iframe.contentWindow.alertResults = resultsCallback;
+        onLoadCallback(iframe, uniqueId);
+      };
+      document.body.appendChild(iframe);
+      return iframe;
+    },
+
+    // Remove an iframe
+    _removeFrame: function removeFrame(uniqueId) {
+      document.body.removeChild(this.iframes[uniqueId]);
+    },
+
     _buildURL: function _buildURL(uniqueId) { // INSPECTOR is a global, remember all caps means global
-      var url = INSPECTOR + "?uniqueId=" + uniqueId; // Present in flashbang.html
+      var url = INSPECTOR + "?async=true&uniqueId=" + uniqueId; // Present in flashbang.html
       if (this.complexDetection) url = url + "&complexDetection=true";
       if (this.waitFrames) url = url + "&waitFrames=" + this.waitFrames.toString();
       if (this.timeOut) url = url + "&timeOut=" + this.timeOut.toString();
@@ -120,13 +124,13 @@ var Controller = (function() {
       var url = this._buildURL(uniqueId);
       console.log("------------ Launching new instance ------------");
       // Need to bind everything since all callbacks will be in the context of the iframe but we need our dear controller
-      this.iframes[uniqueId] = prepareIframe(url, uniqueId, this._loadSWF.bind(this), this._collectResults.bind(this));
+      this.iframes[uniqueId] = this._prepareFrame(url, uniqueId);
     },
 
     _killShumwayInstance: function _killShumwayInstance(uniqueId) {
       // Kill iframe and clean dictionaries, we donot want to end up in memory pressure (pwn2own):P
       console.log("------------ Killing used instance ------------");
-      removeIframe(this.iframes[uniqueId]);
+      this._removeFrame(uniqueId);
       delete this.movieParams[uniqueId];
       delete this.iframes[uniqueId];
       delete this.testRegex[uniqueId];

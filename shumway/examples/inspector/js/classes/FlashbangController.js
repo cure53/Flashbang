@@ -66,6 +66,7 @@ var FlashbangController = (function() {
   FlashbangController.prototype = {
 
     _proclaimResults: function _proclaimResults() {
+      this.state = STATE_DONE;
       if (alertResults) {
         alertResults(this.flashVars, this.sinkCalls, this.uniqueId);
       } else {
